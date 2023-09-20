@@ -2,8 +2,13 @@
 from user import User
 from learner import Learner
 from parentEducator import ParentEducator
+import sqlite3 as sql
+
 
 user_database = []
+
+# setup the db connection
+db = sql.connect("codeventure.db")
 
 #feature = signing up and login 
 def main():
@@ -25,9 +30,12 @@ def main():
 
             #to be modified
 
-            default_id = 1
+            
 
-            new_user = User(name_first, name_last, user_email, user_password, user_username,user_type, default_id)
+            new_user = User(name_first, name_last, user_email, user_password, user_username,user_type)
+
+            db.execute("INSERT INTO users (first_name, last_name, email, password, username, type) VALUES (?,?,?,?,?,?)", (name_first, name_last, user_email, user_password, user_username, user_type))
+            db.commit()
 
             #store the information for log in of user afterwords
             user_database.append(new_user)
