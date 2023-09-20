@@ -20,8 +20,5 @@ class Admin():
         self.admin_id = User.get_user_id()
 
 
-    
-
-
 if __name__ == "__main__":
     pass
