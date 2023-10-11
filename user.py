@@ -29,14 +29,13 @@ class User():
                  password, 
                  username,
                  type, # type is either "student" or "educator"
-                 user_id):
+                 ):
     
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
         self.password = password
         self.username = username
-        self.user_id = user_id
         self.type = type
 
     #accessor methods

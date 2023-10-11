@@ -3,6 +3,7 @@ from user import User
 from learner import Learner
 from parentEducator import ParentEducator
 import sqlite3 as sql
+from constructors import construct_user
 
 
 user_database = []
@@ -12,8 +13,10 @@ db = sql.connect("codeventure.db")
 
 #feature = signing up and login 
 def main():
-    """main function with menu
+    """
+    main function with menu
     signing up of a new user and logging in of the user
+
     """
     print("Welcome to CodeVenture.")
     while True:
@@ -28,13 +31,14 @@ def main():
             user_username = input("Enter a username: ")
             user_password = input("Enter a password for your account: ")
 
-            #to be modified
+            # to be modified
 
             
 
             new_user = User(name_first, name_last, user_email, user_password, user_username,user_type)
 
-            db.execute("INSERT INTO users (first_name, last_name, email, password, username, type) VALUES (?,?,?,?,?,?)", (name_first, name_last, user_email, user_password, user_username, user_type))
+            db.execute("INSERT INTO users (first_name, last_name, email, password, username, type) VALUES (?,?,?,?,?,?)"
+                       , (name_first, name_last, user_email, user_password, user_username, user_type))
             db.commit()
 
             #store the information for log in of user afterwords
@@ -43,26 +47,38 @@ def main():
             print("You are now part of the CodeVenture Family! Welcome!")
 
 
-        elif user_input == 2:
+        if user_input == 2:
             old_username = input("Enter your username: ")
             old_password = input("Enter your password: ")
             
             #check if user exists
-            for user in user_database:
-                user.VerifyLogin(old_username,old_password)
+            # for user in user_database:
+            #     user.VerifyLogin(old_username,old_password)
 
-                if user.getLoginStatus():
-                    print(f"Welcome back, {user.get_first_name()}!")
+            #     if user.getLoginStatus():
+            #         print(f"Welcome back, {user.get_first_name()}!")
 
-                    #break out of the loop once user is found in the database
-                    break
-            
+            #         #break out of the loop once user is found in the database
+            #         break
+
+            # Get the user data from the database
+            if construct_user(old_username, old_password):
+                user = construct_user(old_username, old_password)
+                print(f"Welcome back, {user.get_first_name()}!")
+
+
+                # Need to redirect the user to the appropriate menu.
 
             else:
                 print("Invalid username or password. Unable to log in. ")
 
+            
+
+            # else:
+            #     print("Invalid username or password. Unable to log in. ")
+
             break
-        elif user_input == 3:
+        if user_input == 3:
             print("Goodbye. See you next time")
             break
         
