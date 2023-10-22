@@ -14,7 +14,7 @@ class User():
                  email, 
                  password, 
                  username,
-                 type, # type is either "student" or "educator"
+                 user_type, # type is either "student" or "educator"
                  user_id):
     
         self.first_name = first_name
@@ -23,7 +23,7 @@ class User():
         self.password = password
         self.username = username
         self.user_id = user_id
-        self.type = type
+        self.user_type = user_type
 
     #accessor methods
     def get_first_name(self):
@@ -42,14 +42,17 @@ class User():
     def get_user_id(self):
         return self.user_id
     
+    def get_user_type(self):
+        return self.user_type
+    
     #mutator methods
-    def setusername(self, username):
+    def set_username(self, username):
         self.username = username
-    def setpassword(self, password):
+    def set_password(self, password):
         self.password = password
     
     #verification 
-    def VerifyLogin(self, username, password):
+    def verify_login(self, username, password):
 
     # Might need to change the definition of this function to get the info 
     # from a database
@@ -62,10 +65,9 @@ class User():
     def logOut(self):
         self.login_status = False
 
-    def getType(self):
-        return self.type
+   
     
     # Debugging str
 
     def __str__(self):
-        return "User: " + self.first_name + " " + self.last_name + " " + self.email + " " + self.password + " " + self.username + " " + self.type + " " + str(self.user_id)
+        return "User: " + self.first_name + " " + self.last_name + " " + self.email + " " + self.password + " " + self.username + " " + self.user_type + " " + str(self.user_id)

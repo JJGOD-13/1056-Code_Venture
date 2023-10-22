@@ -3,6 +3,7 @@ from user import User
 from learner import Learner
 from parentEducator import ParentEducator
 
+#to be modified
 user_database = []
 
 #feature = signing up and login 
@@ -12,54 +13,85 @@ def main():
     """
     print("Welcome to CodeVenture.")
     while True:
-        user_input = int(input("Choose one option: \n1. Sign up! (for new users)\n2. Log In (For existing users): \n3. Exit\n"))
+        try:
+            user_input = int(input("Choose one option: \n1. Sign up! (for new users)\n2. Log In (For existing users): \n3. Exit\n"))
 
-        if user_input == 1:
-            #create a new user object with inputs from the user
-            name_first = input("Enter your first name: ")
-            name_last = input("Enter your last name: ")
-            user_email = input("Enter your email: ")
-            user_type = input("Enter your type: Student, Parent or Educator:")
-            user_username = input("Enter a username: ")
-            user_password = input("Enter a password for your account: ")
+            if user_input == 1:
+                #create a new user object with inputs from the user
+                name_first = input("Enter your first name: ")
+                name_last = input("Enter your last name: ")
+                while True:
+                    user_email = input("Enter your email: ")
+                    if "@" in user_email:
+                        break
+                    else: 
+                        print("Please enter a valid email.")
 
-            #to be modified
+                user_type = input("Enter your type: Student, Parent or Educator:")
+                user_type = user_type.lower()
+                while True:
+                    if user_type == "student" or  user_type == "parent" or  user_type == "educator":
+                        break
+                    else:
+                        print("Please enter a valid user type")
+                        user_type = input("Enter your type: Student, Parent or Educator:")
+                        user_type = user_type.lower()
 
-            default_id = 1
+                user_username = input("Enter a username: ")
+                while True: 
+                    if user_username in user_database:
+                        print("This username already exists in the database, choose a new one")
+                    else:
+                        break
+                user_password = input("Enter a password for your account: ")
 
-            new_user = User(name_first, name_last, user_email, user_password, user_username,user_type, default_id)
+                #to be modified
 
-            #store the information for log in of user afterwords
-            user_database.append(new_user)
+                default_id = 1
 
-            print("You are now part of the CodeVenture Family! Welcome!")
+                new_user = User(name_first, name_last, user_email, user_password, user_username, user_type, default_id)
+
+                #store the information for log in of user afterwords
+                user_database.append(new_user)
+
+                print("You are now part of the CodeVenture Family! Welcome!")
 
 
-        elif user_input == 2:
-            old_username = input("Enter your username: ")
-            old_password = input("Enter your password: ")
+            elif user_input == 2:
+                old_username = input("Enter your username: ")
+                old_password = input("Enter your password: ")
+                
+                #check if user exists
+                for user in user_database:
+                    new_user.verify_login(old_username,old_password)
+
+                    if new_user.get_login_status():
+                        print(f"Welcome back, {new_user.get_first_name()}!")
+
+                        if new_user.get_user_type() == "student":
+                            print("Welcome to the Learner Student Menu. Choose one option to continue")
+                            print("1. Start Tutorials")
+                            print("2. Start Challenges")
+                            print("3. View Progress Report")
+
+                        #break out of the loop once user is found in the database
+                        
+                
+
+                    else:
+                        print("Invalid username or password. Unable to log in. ")
+
+
+            elif user_input == 3:
+                print("Goodbye. See you next time")
+                break
             
-            #check if user exists
-            for user in user_database:
-                user.VerifyLogin(old_username,old_password)
-
-                if user.getLoginStatus():
-                    print(f"Welcome back, {user.get_first_name()}!")
-
-                    #break out of the loop once user is found in the database
-                    break
-            
-
-            else:
-                print("Invalid username or password. Unable to log in. ")
-
-            break
-        elif user_input == 3:
-            print("Goodbye. See you next time")
-            break
-        
-        else: 
+            else: 
+                print("Invalid selection for the main menu.")
+        except ValueError:
             print("Invalid selection for the main menu.")
+
+        
 
 if __name__ == "__main__":
     main()

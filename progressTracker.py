@@ -39,7 +39,9 @@ class ProgressTracker():
     
     #setter methods
     def set_score(self, new_score):
-        self.total_scores += new_score
+        #ensuring no negative score is added
+        if new_score > 0:
+            self.total_scores += new_score
 
     def set_tutorial(self):
         self.total_challenges_completed += 1
