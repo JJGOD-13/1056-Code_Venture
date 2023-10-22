@@ -2,14 +2,22 @@
 from user import User
 from learner import Learner
 from parentEducator import ParentEducator
+import sqlite3 as sql
+from constructors import construct_user
+
 
 #to be modified
 user_database = []
 
+# setup the db connection
+db = sql.connect("codeventure.db")
+
 #feature = signing up and login 
 def main():
-    """main function with menu
+    """
+    main function with menu
     signing up of a new user and logging in of the user
+
     """
     print("Welcome to CodeVenture.")
     while True:
@@ -73,6 +81,23 @@ def main():
                             print("1. Start Tutorials")
                             print("2. Start Challenges")
                             print("3. View Progress Report")
+                            learner_input = input("Select one option: ")
+
+                        if new_user.get_user_type() == "parent":
+                            print("Welcome to the Parent  Menu. Choose one option to continue")
+                            print("1. View Progress Report of your child")
+                            print("2. Provide feedback")
+                            parent_input = input("Select one option: ")
+                            while True:
+                                if input == "1":
+                                    pass
+                                elif input == "2":
+                                    ParentEducator.give_feedback()
+
+                                else: 
+                                    print("Please provide valid input")
+
+                            
 
                         #break out of the loop once user is found in the database
                         
@@ -82,7 +107,8 @@ def main():
                         print("Invalid username or password. Unable to log in. ")
 
 
-            elif user_input == 3:
+
+            if user_input == 3:
                 print("Goodbye. See you next time")
                 break
             
