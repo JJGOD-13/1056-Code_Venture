@@ -19,7 +19,7 @@ class ParentEducator():
         Constructor of ParentEducator self
         """
         self.User = User
-        self.parentEducatorName = User.getUsername()
+        self.parentEducatorName = User.get_username()
         self.Learner = Learner
 
     def get_learner_progress(self):
@@ -31,9 +31,6 @@ class ParentEducator():
         feedback_input = input("Please give your feedback about CodeVenture: ")
         print("Thank you very much for your feedback.")
         return feedback_input
-
-
-
 
 if __name__ == "__main__":
     # Test cases
