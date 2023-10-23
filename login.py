@@ -15,7 +15,7 @@ educator.py
 import tkinter as tk
 
 from user import User
-from learner import Learner
+from register import Register
 import  sqlite3 as sql
 from homepage import Homepage
 import time
@@ -86,7 +86,17 @@ class Login(tk.Frame):
         register_button.grid(row=2, column=1, sticky=tk.E, padx=10, pady=10)
 
 
-       
+    def register(self):
+        # Erase the login page
+        self.place_forget()
+
+        # Initialize the registration page
+
+        # Make a register object
+        register = Register(self.master)
+        register.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+
+
 
 
 
