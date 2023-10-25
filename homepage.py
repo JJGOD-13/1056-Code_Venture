@@ -14,7 +14,7 @@ from update_db import update_db
 
 class Homepage(tk.Frame):
 
-    def __init__(self,master,user):
+    def __init__(self,master,user=User):
         """
         Initialize the homepage.
         
@@ -37,11 +37,11 @@ class Homepage(tk.Frame):
 
         # Check what the user type is
 
-        if self.user.get_type() == "student":
+        if self.user.user_type() == "student":
             self.student_homepage()
-        elif self.user.get_type() == "parent":  
+        elif self.user.user_type() == "parent":  
             self.parent_homepage()
-        elif self.user.get_type() == "educator":
+        elif self.user.user_type() == "educator":
             self.educator_homepage()
         else:
             self.admin_homepage()
@@ -60,7 +60,7 @@ class Homepage(tk.Frame):
 
 if __name__ == "__main__":
     # Test cases
-
+    pass
 
 
 

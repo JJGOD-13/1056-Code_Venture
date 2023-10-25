@@ -17,7 +17,7 @@ class User():
     - email: a string
     - password: a string
     - username: a string
-    - type: a string, either "student" or "educator"
+    - user_type: a string, either "student" or "educator"
     - user_id: an integer
 
     """
