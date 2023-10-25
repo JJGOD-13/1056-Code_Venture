@@ -56,12 +56,8 @@ def main():
                 #to be modified
 
                 default_id = 1
-    
-                if user_type == "parent":
-                    #this sample learner is only used for checking implementation of the parent class function
-                    #to removed later
-                    sample_learner = Learner("jane", "k", "jjo@example.com", "1234", "jd", "student", "1", 12, 0)
-                    new_user = ParentEducator(name_first, name_last, user_email, user_password, user_username, user_type, default_id,sample_learner)
+
+                new_user = User(name_first, name_last, user_email, user_password, user_username, user_type, default_id)
 
                 #store the information for log in of user afterwords
                 user_database.append(new_user)
@@ -86,27 +82,20 @@ def main():
                             print("2. Start Challenges")
                             print("3. View Progress Report")
                             learner_input = input("Select one option: ")
-                            if learner_input == "1":
-                                print("Tutorials")
-                            elif learner_input == "2":
-                                print("Challenges")
-                            if learner_input == "3":
-                                print("The Progress Report")
 
-                        elif new_user.get_user_type() == "parent":
+                        if new_user.get_user_type() == "parent":
                             print("Welcome to the Parent  Menu. Choose one option to continue")
                             print("1. View Progress Report of your child")
                             print("2. Provide feedback")
                             parent_input = input("Select one option: ")
                             while True:
-                                if parent_input == "1":
-                                    new_user.get_learner_progress()
+                                if input == "1":
+                                    pass
                                 elif input == "2":
-                                    new_user.give_feedback()
+                                    ParentEducator.give_feedback()
 
                                 else: 
                                     print("Please provide valid input")
-                                    parent_input = input("Select one option: ")
 
                             
 
@@ -119,7 +108,7 @@ def main():
 
 
 
-            elif user_input == 3:
+            if user_input == 3:
                 print("Goodbye. See you next time")
                 break
             
