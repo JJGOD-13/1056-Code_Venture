@@ -6,7 +6,7 @@ from user import User
 #from progressTracker import ProgressTracker
 
 # Learner class definition
-class Learner():
+class Learner(User):
     """
     Definition for the Learner class.
     This class accepts the following arguments:
@@ -17,25 +17,39 @@ class Learner():
     """
 
     def __init__(self, 
-                 User, 
+                 first_name,
+                 last_name,
+                 email, 
+                 password, 
+                 username,
+                 user_type, # type is either "student" or "educator"
+                 user_id, 
                  age,
-                 progressLevel):
-        self.User = User
-        self.display_name = User.get_username()
+                 progress_level):
+        
+        super().__init__(first_name,
+                 last_name,
+                 email, 
+                 password, 
+                 username,
+                 user_type, # type is either "student" or "educator"
+                 user_id)
         self.age = age
-        self.progressLevel = progressLevel
+        self.progress_level = progress_level
 
         #initialising a progress tracker for each student
         #self.progress_tracker = ProgressTracker(self)
 
-    def getAge(self):
+    def get_age(self):
         return self.age
 
-    def setAge(self, age):
-        self.age = age
+    def set_age(self, age):
+        if age > 0:
+            self.age = age
     
-    def addProgressLevel(self):
-        self.progressLevel += 1
+    def add_progress_level(self):
+        self.progress_level += 1
+    
 
     #updating the progress of the learner in the progress tracker
     # def tutorial_progress(self):
@@ -46,9 +60,6 @@ class Learner():
 
     # def score_progress(self,new_score):
     #     self.progress_tracker.set_score(new_score)
-
-
-
     
 
 

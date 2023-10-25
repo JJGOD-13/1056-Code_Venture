@@ -44,13 +44,13 @@ class ProgressTracker():
             self.total_scores += new_score
 
     def set_tutorial(self):
-        self.total_challenges_completed += 1
+        self.total_tutorial_completed += 1
 
     def set_challenge(self):
         self.total_challenges_completed +=1 
 
     def report(self):
-        print(f"The report for {self.Learner.display_name}")
+        print(f"The report for {self.Learner.first_name}")
         print(f"Total score = {self.total_scores}")
         print(f"Total Tutorials Completed = {self.total_tutorial_completed}")
         print(f"Total challenges completed = {self.total_challenges_completed}")
@@ -60,7 +60,7 @@ class ProgressTracker():
 if __name__ == "__main__":
     # Test cases
     #feature view learner progress report 
-    user1 = User("Jane", "Doe", "something@gmail.com", "password", "jdoe", "student", 1)
-    learner1 = Learner(user1, 14, 1)
+    
+    learner1 = Learner("Jane", "Doe", "something@gmail.com", "password", "jdoe", "student", 1, 14, 1)
     pg = ProgressTracker(learner1,10, 2, 1)
     pg.report()

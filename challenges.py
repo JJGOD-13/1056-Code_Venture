@@ -14,10 +14,10 @@ class Challenges():
 
     def __init__(self, 
                  challenge_title, 
-                 challnege_content,
+                 challenge_content,
                  ):
         self.challenge_title = challenge_title
-        self.challnege_content = challnege_content
+        self.challenge_content = challenge_content
         
     #accessor methods
     def get_challenge_title(self):
