@@ -38,7 +38,7 @@ class Homepage(tk.Frame):
         # Check what the user type is
 
         if self.user.user_type == "student":
-            self.student_homepage()
+            self.student_homepage(self.user)
         elif self.user.user_type() == "parent":  
             self.parent_homepage()
         elif self.user.user_type() == "educator":
@@ -46,26 +46,16 @@ class Homepage(tk.Frame):
         else:
             self.admin_homepage()
 
-    def student_homepage(self):
+    def student_homepage(self, user):
         """
         Definition for the main student page.
         """
-        #welcome message label
-        welcome_label = tk.Label(self,text = "Welcome to the Student Page!", font=("Arial",18) )
-        welcome_label.grid(row=0, columnspan=2, padx=10, pady=10)
+        # Remove homepage from display
+        self.place_forget()
 
-        #button to start tutorials
-        tutorial_button = tk.Button(self, text = "Start Tutorials") #add command to direct to tutorials page
-        tutorial_button.grid(row=1, column=0, padx=10, pady=10)
-
-        #button to start challenges 
-        challenges_button = tk.Button(self, text = "Start Challenges") #add command to direct to challenges page
-        challenges_button.grid(row=2, column=0, padx=10, pady=10)
-
-        #button to view progress
-        challenges_button = tk.Button(self, text = "View Progress so far") #add command to direct to progress report page
-        challenges_button.grid(row=3, column=0, padx=10, pady=10)
-
+        # Create and display the Learner(Student Homepage) frame
+        learner_frame = Learner(self.master,user)
+        learner_frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
 
     def parent_homepage(self):

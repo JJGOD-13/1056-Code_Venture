@@ -3,10 +3,13 @@ The definition for the Learner class is below.
 '''
 # Import statements
 from user import User
+import tkinter as tk
+from tutorial import Tutorials
+from challenges import Challenges
 #from progressTracker import ProgressTracker
 
 # Learner class definition
-class Learner():
+class Learner(tk.Frame):
     """
     Definition for the Learner class.
     This class accepts the following arguments:
@@ -16,19 +19,58 @@ class Learner():
     - progressLevel: and integer whose initial value will be 0 and whose setting i have to figure out. (set to zero initially?)
     """
 
-    def __init__(self, 
+    def __init__(self,
+                 master, 
                  User, 
-                 age,
-                 progressLevel):
+                ):
+        
+        # Initialise the parent class
+        super().__init__(master=master)
+        self.master = master
         self.User = User
-        self.display_name = User.get_username()
-        self.age = age
-        self.progressLevel = progressLevel
+
+        # self.display_name = User.get_username()
+        # self.age = age
+        # self.progressLevel = progressLevel
+
+        
+        #welcome message label
+        welcome_label = tk.Label(self,text = "Welcome to the Student Page!", font=("Arial",18) )
+        welcome_label.grid(row=0, columnspan=2, padx=10, pady=10)
+
+        #button to start tutorials
+        tutorial_button = tk.Button(self, text = "Start Tutorials", command=self.start_tutorial) #add command to direct to tutorials page
+        tutorial_button.grid(row=1, column=0, padx=10, pady=10)
+
+        #button to start challenges 
+        challenges_button = tk.Button(self, text = "Start Challenges",command=self.start_challenge) #add command to direct to challenges page
+        challenges_button.grid(row=2, column=0, padx=10, pady=10)
+
+        #button to view progress
+        challenges_button = tk.Button(self, text = "View Progress so far") #add command to direct to progress report page
+        challenges_button.grid(row=3, column=0, padx=10, pady=10)
+
 
         #initialising a progress tracker for each student
         #self.progress_tracker = ProgressTracker(self)
+    
+    def start_tutorial(self):
+        """
+        Event handler to show tutorial page.
+        """
+        self.place_forget()
+        tutorial_frame = Tutorials(self.master)
+        tutorial_frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+    
+    def start_challenge(self):
+        """
+        Event handler to show tutorial page.
+        """
+        self.place_forget()
+        challenge_frame = Challenges(self.master)
+        challenge_frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
-    def getAge(self):
+    def get_age(self):
         return self.age
 
     def setAge(self, age):
