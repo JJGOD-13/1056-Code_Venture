@@ -43,8 +43,8 @@ def update_db():
 
     # Add the usernames to the students table
 
-    for username in usernames_to_add:
-        c.execute("INSERT INTO students VALUES (?)", (username[0],))
+    # for username in usernames_to_add:
+    #     c.execute("INSERT INTO students VALUES (?)", (username[0],))
 
 
     # Select all the usernames from the educators table

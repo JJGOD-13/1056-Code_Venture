@@ -29,14 +29,13 @@ class User():
                  password, 
                  username,
                  user_type, # type is either "student" or "educator"
-                 user_id):
+                 ):
     
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
         self.password = password
         self.username = username
-        self.user_id = user_id
         self.user_type = user_type
 
     #accessor methods
@@ -53,8 +52,6 @@ class User():
         return self.password
     def get_login_status(self):
         return self.login_status
-    def get_user_id(self):
-        return self.user_id
     
     def get_user_type(self):
         return self.user_type

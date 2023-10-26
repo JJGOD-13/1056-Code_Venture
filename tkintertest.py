@@ -7,7 +7,7 @@ from interface import Interface
 
 # Make an interface class that inherits from the Tk class
 
-interface = Interface("Nigga")
+interface = Interface("CodeVenture")
 
 # Pass the interface object to the login frame
 
