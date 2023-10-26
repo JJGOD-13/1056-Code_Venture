@@ -28,16 +28,9 @@ class Challenges(tk.Frame):
         welcome_label.grid(row=0, columnspan=2, padx=10, pady=10)
 
         #welcome message 2 label
-        welcome_label2 = tk.Label(self,text = "Let's be the masters", font=("Arial",12) )
+        welcome_label2 = tk.Label(self,text = "Practice! Practice! Practice!", font=("Arial",12) )
         welcome_label2.grid(row=1, columnspan=2, padx=10, pady=10)
 
-        #button to tutorial 1
-        tutorial_button1 = tk.Button(self, text = "Challenge 1: Intro") #add command to direct to tutorials page
-        tutorial_button1.grid(row=2, column=0, padx=10, pady=10)
-
-        #button to tutorial 2
-        tutorial_button2 = tk.Button(self, text = "Challenge 2: Basics") #add command to direct to tutorials page
-        tutorial_button2.grid(row=3, column=0, padx=10, pady=10)
         
     #accessor methods
     def get_challenge_title(self):
