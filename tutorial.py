@@ -14,12 +14,14 @@ class Tutorials(tk.Frame):
     """
 
     def __init__(self, 
-                 master
+                 master,
+                 learner_page
                  ):
         
         # Initialise the parent class
         super().__init__(master=master)
         self.master = master
+        self.learner_page = learner_page
 
         #label to show tutorial content
         #declared as an attribute so that tutorial contents fucntions can
@@ -46,15 +48,19 @@ class Tutorials(tk.Frame):
 
         #button to show "Advanced" tutorial 
         tutorial_button2 = tk.Button(self, text = "Tutorial: Advanced",command=self.show_advanced_tutorial) 
-        tutorial_button2.grid(row=2, column=1, padx=10, pady=10)
+        tutorial_button2.grid(row=2, column=1,sticky=tk.E, padx=10, pady=10)
 
         #button for next tutorial
         tutorial_next = tk.Button(self, text = "Next Tutorial",command=self.tutorial_next) 
-        tutorial_next.grid(row=4, column=1, padx=10, pady=10)
+        tutorial_next.grid(row=4, column=1,sticky=tk.E, padx=10, pady=10)
         
         #button for previous tutorial
         tutorial_prev = tk.Button(self, text = "Previous Tutorial",command=self.tutorial_prev) 
         tutorial_prev.grid(row=4, column=0, padx=10, pady=10)
+
+        #button to go back to the student page
+        go_back_student_page = tk.Button(self, text = "Go Back",command=self.go_back_to_learner) 
+        go_back_student_page.grid(row=6, columnspan=2, padx=10, pady=10)
 
     
         self.basic_tutorials = [
@@ -89,6 +95,14 @@ class Tutorials(tk.Frame):
         #set current tutorial level
         self.level_current = None
         self.tutorial_index = None
+
+    #method to go back to the learner(student) page
+    def go_back_to_learner(self):
+        """
+        Event handler to go back to the student page
+        """
+        self.place_forget()
+        self.learner_page.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
     #method for basic tutorial 
     def show_basic_tutorial(self):

@@ -18,12 +18,11 @@ import sqlite3 as sql
 from homepage import Homepage
 from user import User
 
-
 # Make a class for the registration page that take the root from the main file
 
 class Register(tk.Frame):
 
-    def __init__(self,master):
+    def __init__(self,master, login_page):
 
         """
         Initialize the registration page.
@@ -38,6 +37,7 @@ class Register(tk.Frame):
         # Initialise the parent class
         super().__init__(master=master)
         self.master = master
+        self.login_page = login_page
 
         # Make a canvas to make displaying easier
         canvas = tk.Canvas(master=self, width=960, height=540)
@@ -116,10 +116,20 @@ class Register(tk.Frame):
 
         # Make a button to register
         register_button = tk.Button(master=frame, text="Register", command=self.register)
-        register_button.grid(row=8, column=0, sticky=tk.W, padx=10, pady=10)
+        register_button.grid(row=8, column=1, sticky=tk.W, padx=10, pady=10)
+
+        #Make a button to go back to login page
+        go_back_button = tk.Button(master=frame, text="Go Back", command=self.go_back)
+        go_back_button.grid(row=8, column=0, sticky=tk.W, padx=10, pady=10)
 
         self.frame = frame
 
+    def go_back(self):
+        """
+        Event handler to go back to the login page
+        """
+        self.place_forget()
+        self.login_page.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
 
     def register(self):

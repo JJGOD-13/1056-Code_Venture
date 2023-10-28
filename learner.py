@@ -59,7 +59,7 @@ class Learner(tk.Frame):
         Event handler to show tutorial page.
         """
         self.place_forget()
-        tutorial_frame = Tutorials(self.master)
+        tutorial_frame = Tutorials(self.master, self)
         tutorial_frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
     
     def start_challenge(self):
@@ -67,7 +67,7 @@ class Learner(tk.Frame):
         Event handler to show tutorial page.
         """
         self.place_forget()
-        challenge_frame = Challenges(self.master)
+        challenge_frame = Challenges(self.master,self)
         challenge_frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
     def get_age(self):

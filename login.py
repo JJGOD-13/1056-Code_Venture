@@ -61,33 +61,47 @@ class Login(tk.Frame):
         frame = tk.Frame(master=canvas, width=960, height=540)
         frame.pack()
 
+        # Logo image for the login page
+        login_canvas = tk.Canvas(master=self, width=50, height=50)
+        login_canvas.grid(row=0, column=0, columnspan=2, sticky=tk.N, padx=10, pady=10)
+
+        # Image obtained from:
+        # https://www.flaticon.com/free-icon/coding_4191039
+        
+        image_path = "icon.png"
+        self.login_logo = tk.PhotoImage(file=image_path)
+        self.login_logo = self.login_logo.subsample(10)
+        login_canvas.create_image(0, 0,
+                                  anchor=tk.NW,
+                                  image=self.login_logo)
+
         # Make a label for the welcome 
-        username_label = tk.Label(master=frame, text="Welcome to CodeVenture!",font=("Arial",20))
-        username_label.grid(row=0, columnspan=2, sticky=tk.W, padx=10, pady=10)
+        username_label = tk.Label(master=frame, text="Welcome to            CodeVenture!",font=("Arial",20))
+        username_label.grid(row=2,column=0, columnspan=2, sticky=tk.W, padx=10, pady=10)
 
         # Make a label for the username
         username_label = tk.Label(master=frame, text="Username:")
-        username_label.grid(row=1, column=0, sticky=tk.W, padx=10, pady=10)
+        username_label.grid(row=3, column=0, padx=10, pady=10)
 
         # Make an entry for the username
         self.username_entry = tk.Entry(master=frame)
-        self.username_entry.grid(row=1, column=1, sticky=tk.W, padx=10, pady=10)
+        self.username_entry.grid(row=3, column=1, sticky=tk.W, padx=10, pady=10)
 
         # Make a label for the password
         password_label = tk.Label(master=frame, text="Password:")
-        password_label.grid(row=2, column=0, sticky=tk.W, padx=10, pady=10)
+        password_label.grid(row=4, column=0, padx=10, pady=10)
 
         # Make an entry for the password
         self.password_entry = tk.Entry(master=frame, show="*")
-        self.password_entry.grid(row=2, column=1, sticky=tk.W, padx=10, pady=10)
+        self.password_entry.grid(row=4, column=1, sticky=tk.W, padx=10, pady=10)
 
         # Make a button to login
         login_button = tk.Button(master=frame, text="Login", command=self.login)
-        login_button.grid(row=3, column=0, sticky=tk.W, padx=10, pady=10)
+        login_button.grid(row=5, column=0, padx=10, pady=10)
 
         # Make a button to register
         register_button = tk.Button(master=frame, text="Register", command=self.register)
-        register_button.grid(row=3, column=1, sticky=tk.E, padx=10, pady=10)
+        register_button.grid(row=5, column=1,  padx=10, pady=10)
 
 
     def register(self):
@@ -97,7 +111,7 @@ class Login(tk.Frame):
         # Initialize the registration page
 
         # Make a register object
-        register = Register(self.master)
+        register = Register(self.master, self)
         register.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
 
