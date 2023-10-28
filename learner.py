@@ -6,7 +6,7 @@ from user import User
 import tkinter as tk
 from tutorial import Tutorials
 from challenges import Challenges
-#from progressTracker import ProgressTracker
+from progressTracker import ProgressTracker
 
 # Learner class definition
 class Learner(tk.Frame):
@@ -47,7 +47,7 @@ class Learner(tk.Frame):
         challenges_button.grid(row=2, column=0, padx=10, pady=10)
 
         #button to view progress
-        challenges_button = tk.Button(self, text = "View Progress so far") #add command to direct to progress report page
+        challenges_button = tk.Button(self, text = "View Progress so far", command=self.view_report) #add command to direct to progress report page
         challenges_button.grid(row=3, column=0, padx=10, pady=10)
         
         # #button to go back to the login page
@@ -79,6 +79,15 @@ class Learner(tk.Frame):
         self.place_forget()
         challenge_frame = Challenges(self.master,self)
         challenge_frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+    
+    def view_report(self):
+        """
+        Event handler to show progress report.
+        """
+        self.place_forget()
+        report_frame = ProgressTracker(self.master)
+        report_frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+
 
     def get_age(self):
         return self.age

@@ -1,9 +1,10 @@
 '''
-The definintion for tutorial class
+The definition for tutorial class
 '''
 #import statements
 import random
 import tkinter as tk
+import csv
 
 class Tutorials(tk.Frame):
     """
