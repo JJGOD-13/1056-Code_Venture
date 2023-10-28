@@ -6,6 +6,7 @@ from user import User
 import tkinter as tk
 from tutorial import Tutorials
 from challenges import Challenges
+import sqlite3 as sql
 #from progressTracker import ProgressTracker
 
 # Learner class definition
@@ -21,7 +22,7 @@ class Learner(tk.Frame):
 
     def __init__(self,
                  master, 
-                 User
+                 User=User
                 ):
         
         # Initialise the parent class
@@ -47,8 +48,8 @@ class Learner(tk.Frame):
         challenges_button.grid(row=2, column=0, padx=10, pady=10)
 
         #button to view progress
-        challenges_button = tk.Button(self, text = "View Progress so far") #add command to direct to progress report page
-        challenges_button.grid(row=3, column=0, padx=10, pady=10)
+        progress_button = tk.Button(self, text = "View Progress so far", command=self.view_progress) #add command to direct to progress report page
+        progress_button.grid(row=3, column=0, padx=10, pady=10)
         
         # #button to go back to the login page
         # go_to_home_page = tk.Button(self, text = "Go Back",command=self.go_back_to_home) 
@@ -98,6 +99,23 @@ class Learner(tk.Frame):
 
     # def score_progress(self,new_score):
     #     self.progress_tracker.set_score(new_score)
+
+    def view_progress(self):
+        """
+        Event handler to view progress.
+        """
+
+        # Get the progress from the database
+        db = sql.connect('codeventure.db')
+        c = db.cursor()
+        c.execute("SELECT experience FROM students WHERE username = ?", (self.User.get_username(),))
+        result = c.fetchall()
+        db.close()
+
+         # Create a label to display the progress
+        progress_label = tk.Label(self, text=f"Your progress so far: {result} out of 5 lessons completed.")
+        progress_label.grid(row=4, column=0, padx=10, pady=10)
+
 
 
 

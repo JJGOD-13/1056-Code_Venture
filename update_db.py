@@ -23,7 +23,7 @@ def update_db():
 
     # Make a list of all usernames from the user table where the type is "parent" or "educator"
 
-    c.execute("SELECT username FROM users WHERE type = 'parent' OR type = 'educator'")
+    c.execute("SELECT username FROM users WHERE type = 'parent/educator'")
 
     user_parent_educator_usernames = c.fetchall()
 
@@ -43,8 +43,8 @@ def update_db():
 
     # Add the usernames to the students table
 
-    # for username in usernames_to_add:
-    #     c.execute("INSERT INTO students VALUES (?)", (username[0],))
+    for username in usernames_to_add:
+        c.execute("INSERT INTO students (username) VALUES (?)", (username[0],))
 
 
     # Select all the usernames from the educators table
@@ -67,6 +67,6 @@ def update_db():
     for username in usernames_to_add:
         c.execute("INSERT INTO educators VALUES (?)", (username[0],))
 
-        
+
 
     
