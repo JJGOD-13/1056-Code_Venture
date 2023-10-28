@@ -71,9 +71,11 @@ class Login(tk.Frame):
         image_path = "icon.png"
         self.login_logo = tk.PhotoImage(file=image_path)
         self.login_logo = self.login_logo.subsample(10)
+
         login_canvas.create_image(0, 0,
                                   anchor=tk.NW,
                                   image=self.login_logo)
+        login_canvas.place(relx=0.5, y=-20, anchor=tk.NW)
 
         # Make a label for the welcome 
         username_label = tk.Label(master=frame, text="Welcome to            CodeVenture!",font=("Arial",20))
