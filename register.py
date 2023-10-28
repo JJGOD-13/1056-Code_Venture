@@ -111,7 +111,7 @@ class Register(tk.Frame):
         # Make a drop down menu for the user type
         self.user_type = tk.StringVar()
         self.user_type.set("student")
-        user_type_dropdown = tk.OptionMenu(frame, self.user_type, "student", "parent", "educator")
+        user_type_dropdown = tk.OptionMenu(frame, self.user_type, "student", "parent/educator", "admin")
         user_type_dropdown.grid(row=7, column=1, sticky=tk.W, padx=10, pady=10)
 
         # Make a button to register

@@ -68,13 +68,24 @@ class Challenges(tk.Frame):
         ques_prev = tk.Button(self, text = "Previous", command=self.ques_prev) 
         ques_prev.grid(row=6, column=0, padx=10, pady=10)
 
+        #button to reveal the answer
+        show_ans_button = tk.Button(self, text = "Show answer",command=self.show_answer) 
+        show_ans_button.grid(row=7, columnspan=3, padx=10, pady=10)
+
         #button to go back to the student page
         go_to_student_page = tk.Button(self, text = "Go Back",command=self.go_back_to_learner) 
-        go_to_student_page.grid(row=7, columnspan=3, padx=10, pady=10)
+        go_to_student_page.grid(row=8, columnspan=3, padx=10, pady=10)
         
         #start with the first question
         self.display_ques()
-
+    
+    #method to show answer
+    def show_answer(self):
+        """
+        Event handler to show answer
+        """
+        correct_answer = self.all_challenge_content[self.current_question_index]["ans"]
+        self.user_ans.set(correct_answer)
     #method to go back to the learner(student) page
     def go_back_to_learner(self):
         """

@@ -21,7 +21,7 @@ class Learner(tk.Frame):
 
     def __init__(self,
                  master, 
-                 User, 
+                 User
                 ):
         
         # Initialise the parent class
@@ -49,11 +49,21 @@ class Learner(tk.Frame):
         #button to view progress
         challenges_button = tk.Button(self, text = "View Progress so far") #add command to direct to progress report page
         challenges_button.grid(row=3, column=0, padx=10, pady=10)
-
+        
+        # #button to go back to the login page
+        # go_to_home_page = tk.Button(self, text = "Go Back",command=self.go_back_to_home) 
+        # go_to_home_page.grid(row=4, columnspan=3, padx=10, pady=10)
 
         #initialising a progress tracker for each student
         #self.progress_tracker = ProgressTracker(self)
     
+    def go_back_to_home(self):
+        """
+        Event handler to go back to the welcome login page
+        """
+        self.place_forget()
+        # self.home_page.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+
     def start_tutorial(self):
         """
         Event handler to show tutorial page.

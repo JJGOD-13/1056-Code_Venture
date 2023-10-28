@@ -41,6 +41,11 @@ CREATE TABLE educator_to_learner (
     FOREIGN KEY (learner_id) REFERENCES learners(id)
 );
 
+CREATE TABLE feedback(
+    feedback_id INTEGER PRIMARY KEY,
+    giver_username VARCHAR(255) NOT NULL,
+    feedback_text TEXT
+);
 
 CREATE TRIGGER update_students AFTER INSERT ON users 
 BEGIN
