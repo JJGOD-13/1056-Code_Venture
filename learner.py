@@ -81,13 +81,13 @@ class Learner(tk.Frame):
         challenge_frame = Challenges(self.master,self)
         challenge_frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
     
-    def view_report(self):
-        """
-        Event handler to show progress report.
-        """
-        self.place_forget()
-        report_frame = ProgressTracker(self.master)
-        report_frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+    # def view_report(self):
+    #     """
+    #     Event handler to show progress report.
+    #     """
+    #     self.place_forget()
+    #     report_frame = ProgressTracker(self.master)
+    #     report_frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
 
     def get_age(self):

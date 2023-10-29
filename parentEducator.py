@@ -51,49 +51,27 @@ class ParentEducator(tk.Frame):
         self.thanks_label.grid(row=5, column=0, padx=10, pady=10)
 
     
-    def store_feedback_csv(self):
-        """
-        This method stores the feedback given in a csv file.
-        """
+    def store_feedback_db(self):
         #retrieve user feedback from the text widget
         #from start to the end of the box
         user_feedback = self.feedback_box.get("1.0", tk.END)
         
-        username = self.User.get_username()
-        #file path and name
-        feedback_file = "feedback.csv"
-
-        #open csv in append mode to prevent overwrite
-        with open(feedback_file, "a") as feedback_storage_file:
-            feedback_storage_file.write(f"{username} : {user_feedback}")
+        #establish connection to the codeventure database
+        feedback_db = sql.connect('codeventure.db')
         
-        #clear the text widget
-        self.feedback_box.delete("1.0", tk.END)
+        #create a cursor object
+        feedback_c = feedback_db.cursor()
 
-        #dispaly thank you message
-        self.thanks_label.config(text="Thank you for your feedback!")
+        #insert the feedback into db feedback table
+        feedback_c.execute("INSERT INTO feedback (giver_username, feedback_text) VALUES (?,?)", (self.User.get_username(), user_feedback))
 
-    # def store_feedback_db(self):
-    #     #retrieve user feedback from the text widget
-    #     #from start to the end of the box
-    #     user_feedback = self.feedback_box.get("1.0", tk.END)
-        
-    #     #establish connection to the codeventure database
-    #     feedback_db = sql.connect('codeventure.db')
-        
-    #     #create a cursor object
-    #     feedback_c = feedback_db.cursor()
+        print("Feedback received")
 
-    #     #insert the feedback into db feedback table
-    #     feedback_c.execute("INSERT INTO feedback (giver_username, feedback_text) VALUES (?,?)", (self.User.get_username(), user_feedback))
+        #commit the changes to the databse
+        feedback_db.commit()
 
-    #     print("Feedback received")
-
-    #     #commit the changes to the databse
-    #     feedback_db.commit()
-
-    #     #close the connection to the databse
-    #     feedback_db.close()
+        #close the connection to the databse
+        feedback_db.close()
 
 
 if __name__ == "__main__":
