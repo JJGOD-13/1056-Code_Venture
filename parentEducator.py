@@ -72,6 +72,15 @@ class ParentEducator(tk.Frame):
         #close the connection to the databse
         feedback_db.close()
 
+        #clear the text box
+        self.feedback_box.delete("1.0", tk.END)
+
+        # #display a message to the user
+        feedback_submitted_label = tk.Label(self, text="Feedback submitted!", fg="green")
+        feedback_submitted_label.grid(row=5, column=0, sticky=tk.W, padx=10, pady=10)
+        
+
+
 
 if __name__ == "__main__":
     # Test cases
