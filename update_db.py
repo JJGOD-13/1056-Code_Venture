@@ -67,6 +67,14 @@ def update_db():
     for username in usernames_to_add:
         c.execute("INSERT INTO educators (username) VALUES (?)", (username[0],))
 
+    # Commit the changes
+
+    db.commit()
+
+    # Close the connection
+
+    db.close()
+
 
 
     
