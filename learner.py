@@ -108,7 +108,7 @@ class Learner(tk.Frame):
         # Get the progress from the database
         db = sql.connect('codeventure.db')
         c = db.cursor()
-        c.execute("SELECT experience FROM students WHERE username = ?", (self.User.get_username(),))
+        c.execute("SELECT level FROM students WHERE username = ?", (self.User.get_username(),))
         result = c.fetchall()
         db.close()
 
