@@ -65,7 +65,6 @@ class ParentEducator(tk.Frame):
         #insert the feedback into db feedback table
         feedback_c.execute("INSERT INTO feedback (giver_username, feedback_text) VALUES (?,?)", (self.User.get_username(), user_feedback))
 
-        print("Feedback received")
 
         #commit the changes to the databse
         feedback_db.commit()
