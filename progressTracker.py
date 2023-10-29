@@ -3,7 +3,7 @@ The definition for the ProgressTracker class is below.
 '''
 # Import statements
 from user import User
-# from learner import Learner
+from learner import Learner
 import tkinter as tk
 
 
@@ -17,12 +17,16 @@ class ProgressTracker(tk.Frame):
     """
 
     def __init__(self,
-                 master,  
+                 master,
+                 learner  
                  ):
         
         # Initialise the parent class
         super().__init__(master=master)
         self.master = master
+        self.learner = learner
+
+        #fetch data from Learner
 
         # TODO CONNECT THE LEARNER TO THE PROGRESS REPORT
         #self.Learner = Learner
@@ -34,15 +38,29 @@ class ProgressTracker(tk.Frame):
         heading_label.grid(row=0, columnspan=2, padx=10, pady=10)
 
         #tutorials completed label
-        tutorial_label = tk.Label(self,text = "Tutorials completed: " )
-        tutorial_label.grid(row=1, column=0, padx=10, pady=10)
+        self.tutorial_label = tk.Label(self,text = "" )
+        self.tutorial_label.grid(row=1, column=0, padx=10, pady=10)
 
         #challenges completed label
-        challenges_label = tk.Label(self,text = "Challenges completed: " )
-        challenges_label.grid(row=2, column=0, padx=10, pady=10)
+        self.challenges_label = tk.Label(self,text = "" )
+        self.challenges_label.grid(row=2, column=0, padx=10, pady=10)
 
-        #fetch data from db to show the actual numbers
-        # 
+    def update_progress(self):
+        """
+        Update the ProgressTracker of the actual learner progress
+        """
+        level,index = self.learner.load_progress()
+
+        if level == "basic":
+            done_tutorials = index
+            done_challenges = 0
+        elif level == "advanced":
+            done_tutorials = index
+            done_challenges = 0
+        
+        self.tutorial_label.config(text=f"Tutorials completed: {done_tutorials}")
+        self.challenges_label.config(text=f"Challenges completed: {done_challenges} ")
+
 
        
         

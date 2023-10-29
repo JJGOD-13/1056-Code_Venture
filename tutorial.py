@@ -22,7 +22,13 @@ class Tutorials(tk.Frame):
         # Initialise the parent class
         super().__init__(master=master)
         self.master = master
+
+        #progress variables
+        self.progress_tutorial = {"basic":0, "advanced":0}
         self.learner_page = learner_page
+
+        #load the progress
+        self.load_progress()
 
         #label to show tutorial content
         #declared as an attribute so that tutorial contents fucntions can
@@ -128,6 +134,11 @@ class Tutorials(tk.Frame):
         else:
             self.tutorial_content.config(text= "Yay! You completed all the tutorials.")
 
+        #save progress for each tutorial
+        self.save_progress()
+
+        return self.level_current, self.tutorial_index
+
 
     def tutorial_next(self):
         if self.level_current and self.tutorial_index is not None:
@@ -148,6 +159,37 @@ class Tutorials(tk.Frame):
         messages_list = ["Keep up the good work!", "You can do it!", "Keep going!"]
         message = random.choice(messages_list)
         self.message_label.config(text=message)
+
+    #method to save progress in a csv file
+    def save_progress(self):
+        """
+        Method to save user progress
+        """
+        with open('progress.csv', "w") as progress_file:
+            col_names = ['level', 'index']
+            progress_file.write(",".join(col_names) + '\n')
+
+            progress_file.write(f'{self.level_current}, {self.tutorial_index}\n')
+
+    #method to load progress
+    def load_progress(self):
+        """
+        Method to load user progress when the program is restarted
+        """
+        try:
+            with open('progress.csv', "r") as progress_file:
+                lines = progress_file.readlines()
+                if len(lines) > 1: #check if the file has content
+                    level, index = lines[1].strip().split(',')
+                    self.progress_tutorial[level] = int(index)
+                    return level, int(index)
+        except FileNotFoundError:
+            #error handling if the user has not done anything yet 
+            #and hence file does not exist
+            pass 
+        return None, None
+    
+
 
     # #accessor methods
     # def get_tutorial_title(self):

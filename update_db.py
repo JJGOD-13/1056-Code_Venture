@@ -65,7 +65,7 @@ def update_db():
     # Add the usernames to the educators table
 
     for username in usernames_to_add:
-        c.execute("INSERT INTO educators VALUES (?)", (username[0],))
+        c.execute("INSERT INTO educators VALUES (NULL,?,0)", (username[0],))
 
 
 

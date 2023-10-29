@@ -72,6 +72,28 @@ class ParentEducator(tk.Frame):
 
         #close the connection to the databse
         feedback_db.close()
+    
+    def store_feedback_csv(self):
+        """
+        This method stores the feedback given in a csv file.
+        """
+        #retrieve user feedback from the text widget
+        #from start to the end of the box
+        user_feedback = self.feedback_box.get("1.0", tk.END)
+        
+        username = self.User.get_username()
+        #file path and name
+        feedback_file = "feedback.csv"
+
+        #open csv in append mode to prevent overwrite
+        with open(feedback_file, "a") as feedback_storage_file:
+            feedback_storage_file.write(f"{username} : {user_feedback}")
+        
+        #clear the text widget
+        self.feedback_box.delete("1.0", tk.END)
+
+        #dispaly thank you message
+        self.thanks_label.config(text="Thank you for your feedback!")
 
 
 if __name__ == "__main__":

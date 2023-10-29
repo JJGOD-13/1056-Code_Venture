@@ -121,6 +121,9 @@ class Challenges(tk.Frame):
             right_answer = self.all_challenge_content[self.current_question_index]["ans"]
             if answer_user == right_answer:
                 self.result.config(text="Well done! Correct Answer",fg="green")
+
+                #save progress
+                self.save_progress_challenges()
             elif answer_user == "":
                 self.result.config(text="Please enter an answer to check", fg="red")
             else:
@@ -140,15 +143,25 @@ class Challenges(tk.Frame):
             self.current_question_index -= 1
             self.display_ques()
 
-    
-
-
 
     #function for displaying motivational messages
     def disp_motivational_message(self):
         messages_list = ["Keep up the good work!", "You can do it!", "Keep going!"]
         message = random.choice(messages_list)
         print(message)
+
+    #method to save progress in a csv file
+    def save_progress_challenges(self):
+        """
+        Method to save user progress
+        """
+        with open('challenge_progress.csv', "w") as progress_file:
+            col_names = ['ques_index']
+            progress_file.write(",".join(col_names) + '\n')
+
+            progress_file.write(f'{self.current_question_index}\n')
+
+    #method to load progress
 
 
         

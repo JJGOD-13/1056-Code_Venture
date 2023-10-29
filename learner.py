@@ -40,15 +40,15 @@ class Learner(tk.Frame):
         welcome_label.grid(row=0, columnspan=2, padx=10, pady=10)
 
         #button to start tutorials
-        tutorial_button = tk.Button(self, text = "Start Tutorials", command=self.start_tutorial) #add command to direct to tutorials page
+        tutorial_button = tk.Button(self, text = "Start Tutorials", command=self.start_tutorial) 
         tutorial_button.grid(row=1, column=0, padx=10, pady=10)
 
         #button to start challenges 
-        challenges_button = tk.Button(self, text = "Start Challenges",command=self.start_challenge) #add command to direct to challenges page
+        challenges_button = tk.Button(self, text = "Start Challenges",command=self.start_challenge) 
         challenges_button.grid(row=2, column=0, padx=10, pady=10)
 
         #button to view progress
-        progress_button = tk.Button(self, text = "View Progress so far", command=self.view_progress) #add command to direct to progress report page
+        progress_button = tk.Button(self, text = "View Progress so far", command=self.view_user_progress) 
         progress_button.grid(row=3, column=0, padx=10, pady=10)
         
         # #button to go back to the login page
@@ -81,13 +81,45 @@ class Learner(tk.Frame):
         challenge_frame = Challenges(self.master,self)
         challenge_frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
     
-    # def view_report(self):
-    #     """
-    #     Event handler to show progress report.
-    #     """
-    #     self.place_forget()
-    #     report_frame = ProgressTracker(self.master)
-    #     report_frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+    
+    #csv method
+    
+    def view_user_progress(self):
+        progress_window = tk.Toplevel(self.master)
+        progress_window.title("Progress Report")
+        progress_window.geometry("600x450")
+
+        try:
+            with open('progress.csv', "r") as progress_file:
+                lines = progress_file.readlines()
+                if len(lines) > 1: #check if the file has content
+                    level, index = lines[1].strip().split(',')
+                    completed_tut = int(index)
+                else:
+                    completed_tut = 0
+
+            with open('challenge_progress.csv', "r") as challenge_file:
+                lines_challenge = challenge_file.readlines()
+                if len(lines_challenge) > 1: #check if the file has content
+                    ques_index = lines_challenge[1].strip()
+                    completed_chall = int(ques_index)
+                else:
+                    completed_chall= 0
+        except FileNotFoundError:
+            completed_chall= 0
+            #error handling if the user has not done anything yet 
+            #and hence file does not exist
+            pass 
+       
+        title_label = tk.Label(progress_window, text=f"Progress Report", font=("Arial", 15))
+        title_label.pack(padx=10, pady=10)
+
+
+        progress_label = tk.Label(progress_window, text=f"Tutorials completed: {completed_tut}")
+        progress_label.pack( padx=10, pady=10)
+
+        progress_chall_label = tk.Label(progress_window, text=f"Challenges completed: {completed_chall}")
+        progress_chall_label.pack( padx=10, pady=10)
 
 
     def get_age(self):
@@ -98,16 +130,8 @@ class Learner(tk.Frame):
     
     def addProgressLevel(self):
         self.progressLevel += 1
-
-    #updating the progress of the learner in the progress tracker
-    # def tutorial_progress(self):
-    #     self.progress_tracker.set_tutorial()
     
-    # def challenge_progress(self):
-    #     self.progress_tracker.set_challenge()
-
-    # def score_progress(self,new_score):
-    #     self.progress_tracker.set_score(new_score)
+    #database method
 
     def view_progress(self):
         """
@@ -124,6 +148,7 @@ class Learner(tk.Frame):
          # Create a label to display the progress
         progress_label = tk.Label(self, text=f"Your progress so far: {result} out of 5 lessons completed.")
         progress_label.grid(row=4, column=0, padx=10, pady=10)
+
 
 
 
