@@ -29,6 +29,7 @@ class Learner(tk.Frame):
         super().__init__(master=master)
         self.master = master
         self.User = User
+        self.username_learner = User.get_username()
 
         # self.display_name = User.get_username()
         # self.age = age
@@ -70,7 +71,7 @@ class Learner(tk.Frame):
         Event handler to show tutorial page.
         """
         self.place_forget()
-        tutorial_frame = Tutorials(self.master, self)
+        tutorial_frame = Tutorials(self.master, self, self.username_learner)
         tutorial_frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
     
     def start_challenge(self):
@@ -78,19 +79,19 @@ class Learner(tk.Frame):
         Event handler to show tutorial page.
         """
         self.place_forget()
-        challenge_frame = Challenges(self.master,self)
+        challenge_frame = Challenges(self.master,self,self.username_learner)
         challenge_frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
     
     
     #csv method
-    
+
     def view_user_progress(self):
         progress_window = tk.Toplevel(self.master)
         progress_window.title("Progress Report")
         progress_window.geometry("600x450")
 
         try:
-            with open('progress.csv', "r") as progress_file:
+            with open(f'{self.username_learner}_progress.csv', "r") as progress_file:
                 lines = progress_file.readlines()
                 if len(lines) > 1: #check if the file has content
                     level, index = lines[1].strip().split(',')
@@ -106,6 +107,7 @@ class Learner(tk.Frame):
                 else:
                     completed_chall= 0
         except FileNotFoundError:
+            completed_tut = 0
             completed_chall= 0
             #error handling if the user has not done anything yet 
             #and hence file does not exist
@@ -148,7 +150,6 @@ class Learner(tk.Frame):
          # Create a label to display the progress
         progress_label = tk.Label(self, text=f"Your progress so far: {result} out of 5 lessons completed.")
         progress_label.grid(row=4, column=0, padx=10, pady=10)
-
 
 
 

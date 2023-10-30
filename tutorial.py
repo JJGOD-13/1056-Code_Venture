@@ -16,12 +16,16 @@ class Tutorials(tk.Frame):
 
     def __init__(self, 
                  master,
-                 learner_page
+                 learner_page,
+                 learner_username
                  ):
         
         # Initialise the parent class
         super().__init__(master=master)
         self.master = master
+        
+        #username of the student
+        self.username_student = learner_username
 
         #progress variables
         self.progress_tutorial = {"basic":0, "advanced":0}
@@ -165,7 +169,7 @@ class Tutorials(tk.Frame):
         """
         Method to save user progress
         """
-        with open('progress.csv', "w") as progress_file:
+        with open(f'{self.username_student}_progress.csv', "w") as progress_file:
             col_names = ['level', 'index']
             progress_file.write(",".join(col_names) + '\n')
 
@@ -177,7 +181,7 @@ class Tutorials(tk.Frame):
         Method to load user progress when the program is restarted
         """
         try:
-            with open('progress.csv', "r") as progress_file:
+            with open(f'{self.username_student}_progress.csv', "r") as progress_file:
                 lines = progress_file.readlines()
                 if len(lines) > 1: #check if the file has content
                     level, index = lines[1].strip().split(',')

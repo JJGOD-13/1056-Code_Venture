@@ -15,7 +15,8 @@ class Challenges(tk.Frame):
 
     def __init__(self, 
                  master,
-                 learner_page
+                 learner_page,
+                 username_chall_learner
                  ):
         # self.challenge_title = challenge_title
         # self.challenge_content = challenge_content
@@ -24,6 +25,7 @@ class Challenges(tk.Frame):
         super().__init__(master=master)
         self.master = master
         self.learner_page = learner_page
+        self.username_chall = username_chall_learner
 
         #welcome message label
         welcome_label = tk.Label(self,text = "Welcome to Challenges!", font=("Arial",18) )
@@ -155,7 +157,7 @@ class Challenges(tk.Frame):
         """
         Method to save user progress
         """
-        with open('challenge_progress.csv', "w") as progress_file:
+        with open(f'{self.username_chall}_chall_progress.csv', "w") as progress_file:
             col_names = ['ques_index']
             progress_file.write(",".join(col_names) + '\n')
 
