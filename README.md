@@ -22,7 +22,7 @@ The project is built on the following structure:
 - parentEducator.py - the ParentEducator class
 - admin.py - the Admin class
 - user.py - the User class
-- update_db.py - commands for updating the database
+- update_db.py - functions for updating the database
 - icon.png - the logo image for the login page
 
 # Features
