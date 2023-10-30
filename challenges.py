@@ -46,7 +46,9 @@ class Challenges(tk.Frame):
         self.all_challenge_content =[
             {"ques": "What will be the value of (5**2 + 3*2)", "ans":"31"},
             {"ques": "What will be the value of (4//2)", "ans":"2"},
-            {"ques": "What will be the value of (4/2)", "ans":"2.0"}
+            {"ques": "What will be the value of (4/2)", "ans":"2.0"},
+            {"ques": "Which loop to use if you know how many times you want to loop", "ans":"for"},
+            {"ques": "Which loop to use if you a condition when to stop", "ans":"while"}
             ]
         
         #Label for ques display

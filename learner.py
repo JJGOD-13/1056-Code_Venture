@@ -124,13 +124,13 @@ class Learner(tk.Frame):
         title_label.pack(padx=10, pady=10)
 
 
-        progress_label = tk.Label(progress_window, text=f"Basic Tutorials completed: {completed_tut}")
+        progress_label = tk.Label(progress_window, text=f"Basic Tutorials completed: {completed_tut+1}")
         progress_label.pack( padx=10, pady=10)
 
-        progress_adv_label = tk.Label(progress_window, text=f"Advanced Tutorials completed: {completed_adv}")
+        progress_adv_label = tk.Label(progress_window, text=f"Advanced Tutorials completed: {completed_adv+1}")
         progress_adv_label.pack( padx=10, pady=10)
 
-        progress_chall_label = tk.Label(progress_window, text=f"Challenges completed: {completed_chall}")
+        progress_chall_label = tk.Label(progress_window, text=f"Challenges completed: {completed_chall+1}")
         progress_chall_label.pack( padx=10, pady=10)
 
     

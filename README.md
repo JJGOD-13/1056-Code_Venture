@@ -28,8 +28,8 @@ The project is built on the following structure:
 # Features
 - Register the user (Learner, Parent/Educator, Admin)
 - Login the user (Learner, Parent/Educator, Admin)
-- Attempt Tutorials by Learner
-- Attempt Challenges by Learner
+- Attempt Tutorials by Learner(Reading material)
+- Attempt Challenges by Learner(Quiz type activity)
 - Appearance of tick next to the Tutorial button once after the 
   tutorial is completed
 - Store the Learner progress
