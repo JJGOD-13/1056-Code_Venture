@@ -26,8 +26,8 @@ class User():
                  first_name,
                  last_name,
                  email, 
-                 password, 
                  username,
+                 password,
                  user_type, # type is either "student" or "educator"
                  ):
     
