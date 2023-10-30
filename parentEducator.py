@@ -73,14 +73,18 @@ class ParentEducator(tk.Frame):
         progress_window.title(f"Progress Report of {learner_child_username}")
         progress_window.geometry("600x450")
 
+        #default values
+        completed_tut = 0
+        completed_adv = 0
+
         try:
             with open(f'{learner_child_username}_progress.csv', "r") as progress_file:
-                lines = progress_file.readlines()
-                if len(lines) > 1: #check if the file has content
-                    level, index = lines[1].strip().split(',')
-                    completed_tut = int(index)
-                else:
-                    completed_tut = 0
+                for line in progress_file:
+                    level, index = line.strip().split(',')
+                    if level == "basic":
+                        completed_tut = int(index)
+                    if level == "advanced":
+                        completed_adv = int(index)
 
             with open(f'{learner_child_username}_chall_progress.csv', "r") as challenge_file:
                 lines_challenge = challenge_file.readlines()
@@ -94,8 +98,11 @@ class ParentEducator(tk.Frame):
             title_label.pack(padx=10, pady=10)
 
 
-            progress_label = tk.Label(progress_window, text=f"Tutorials completed: {completed_tut}")
+            progress_label = tk.Label(progress_window, text=f"Basic Tutorials completed: {completed_tut}")
             progress_label.pack( padx=10, pady=10)
+
+            progress_adv_label = tk.Label(progress_window, text=f"Advanced Tutorials completed: {completed_adv}")
+            progress_adv_label.pack( padx=10, pady=10)
 
             progress_chall_label = tk.Label(progress_window, text=f"Challenges completed: {completed_chall}")
             progress_chall_label.pack( padx=10, pady=10)

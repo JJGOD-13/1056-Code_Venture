@@ -85,7 +85,8 @@ class Learner(tk.Frame):
         progress_window = tk.Toplevel(self.master)
         progress_window.title("Progress Report")
         progress_window.geometry("600x450")
-
+        
+        #default values
         completed_tut = 0
         completed_adv = 0
 
