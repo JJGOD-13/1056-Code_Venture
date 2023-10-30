@@ -94,6 +94,14 @@ class Tutorials(tk.Frame):
         Tutorial 3: Conditionals
         In this tutorial, we will learn about conditionals in Python- 
         if-else structures.
+        ""","""
+        Tutorial 4: Loops (For)
+        In this tutorial, we will start to learn about loops. 
+        We will start with "for" loops.
+        ""","""
+        Tutorial 5: Loops(While)
+        In this tutorial, we will learn about while loops in Python
+        and how they are different to for loops.
         """
         ]
         self.advanced_tutorials = [
