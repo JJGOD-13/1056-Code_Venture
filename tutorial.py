@@ -7,25 +7,37 @@ import tkinter as tk
 import csv
 
 class Tutorials(tk.Frame):
-    """
-    Definition for the Tutorial class.
-    attributes
-    - tutorial_title 
-    - tutorial_content
-    """
 
     def __init__(self, 
                  master,
-                 learner_page
+                 learner_page,
+                 learner_username
                  ):
+        """
+        Definition for the Tutorial class.
+        INPUTS:
+        self: The Tutorial object.
+        master: The tk root object.
+        learner_page: The Learner Object
+        learner_username: Username of the learner
+
+        OUTPUTS:
+        None
+        """
         
         # Initialise the parent class
         super().__init__(master=master)
         self.master = master
+        
+        #username of the student
+        self.username_student = learner_username
 
         #progress variables
+        
         self.progress_tutorial = {"basic":0, "advanced":0}
         self.learner_page = learner_page
+
+        self.done_tutorials = {"basic": False, "advanced":True}
 
         #load the progress
         self.load_progress()
@@ -50,12 +62,12 @@ class Tutorials(tk.Frame):
 
 
         #button to show "Basics" tutorial 
-        tutorial_button1 = tk.Button(self, text = "Tutorial: Basics",command=self.show_basic_tutorial) 
-        tutorial_button1.grid(row=2, column=0, padx=10, pady=10)
+        self.tutorial_button1 = tk.Button(self, text = "Tutorial: Basics",command=self.show_basic_tutorial) 
+        self.tutorial_button1.grid(row=2, column=0, padx=10, pady=10)
 
         #button to show "Advanced" tutorial 
-        tutorial_button2 = tk.Button(self, text = "Tutorial: Advanced",command=self.show_advanced_tutorial) 
-        tutorial_button2.grid(row=2, column=1,sticky=tk.E, padx=10, pady=10)
+        self.tutorial_button2 = tk.Button(self, text = "Tutorial: Advanced",command=self.show_advanced_tutorial) 
+        self.tutorial_button2.grid(row=2, column=1,sticky=tk.E, padx=10, pady=10)
 
         #button for next tutorial
         tutorial_next = tk.Button(self, text = "Next Tutorial",command=self.tutorial_next) 
@@ -113,17 +125,26 @@ class Tutorials(tk.Frame):
 
     #method for basic tutorial 
     def show_basic_tutorial(self):
+        """
+        Event handler to show the basic tutorial
+        """
         self.level_current = "basic"
         self.tutorial_index = 0
         self.show_current_tutorial()
 
     #method for advanced tutorial 
     def show_advanced_tutorial(self):
+        """
+        Event handler to show the advanced tutorial
+        """
         self.level_current = "advanced"
         self.tutorial_index = 0
         self.show_current_tutorial()
 
     def show_current_tutorial(self):
+        """
+        Event handler to show current tutorial
+        """
         if self.level_current == "basic":
             tutorial = self.basic_tutorials
         elif self.level_current == "advanced":
@@ -131,16 +152,27 @@ class Tutorials(tk.Frame):
 
         if self.tutorial_index < len(tutorial):
             self.tutorial_content.config(text=tutorial[self.tutorial_index])
+
+            if self.level_current == "basic":
+                self.progress_tutorial["basic"] = self.tutorial_index
+            elif self.level_current == "advanced":
+                self.progress_tutorial["advanced"] = self.tutorial_index
+            #save progress for each tutorial
+            self.save_progress()
         else:
             self.tutorial_content.config(text= "Yay! You completed all the tutorials.")
-
-        #save progress for each tutorial
-        self.save_progress()
+            if self.level_current == "basic":
+                self.tutorial_button1.config(text = "Tutorial: Basics ✅")
+            elif self.level_current == "advanced":
+                self.tutorial_button2.config(text = "Tutorial: Advanced ✅")
 
         return self.level_current, self.tutorial_index
 
 
     def tutorial_next(self):
+        """
+        Event handler to show next tutorial
+        """
         if self.level_current and self.tutorial_index is not None:
             self.tutorial_index += 1
             self.show_current_tutorial()
@@ -149,6 +181,9 @@ class Tutorials(tk.Frame):
 
 
     def tutorial_prev(self):
+        """
+        Event handler to show previous tutorial
+        """
         if self.level_current and self.tutorial_index is not None:
             if self.tutorial_index > 0:
                 self.tutorial_index -= 1
@@ -156,6 +191,9 @@ class Tutorials(tk.Frame):
 
     #function for displaying motivational messages
     def disp_motivational_message(self):
+        """
+        Event handler to show display motivational messages
+        """
         messages_list = ["Keep up the good work!", "You can do it!", "Keep going!"]
         message = random.choice(messages_list)
         self.message_label.config(text=message)
@@ -165,11 +203,13 @@ class Tutorials(tk.Frame):
         """
         Method to save user progress
         """
-        with open('progress.csv', "w") as progress_file:
+        with open(f'{self.username_student}_progress.csv', "w") as progress_file:
             col_names = ['level', 'index']
             progress_file.write(",".join(col_names) + '\n')
 
-            progress_file.write(f'{self.level_current}, {self.tutorial_index}\n')
+            #progress_file.write(f'{self.level_current}, {self.tutorial_index + 1}\n')
+            progress_file.write(f'basic, {self.progress_tutorial["basic"]}\n')
+            progress_file.write(f'advanced, {self.progress_tutorial["advanced"]}\n')
 
     #method to load progress
     def load_progress(self):
@@ -177,12 +217,14 @@ class Tutorials(tk.Frame):
         Method to load user progress when the program is restarted
         """
         try:
-            with open('progress.csv', "r") as progress_file:
+            with open(f'{self.username_student}_progress.csv', "r") as progress_file:
                 lines = progress_file.readlines()
                 if len(lines) > 1: #check if the file has content
                     level, index = lines[1].strip().split(',')
                     self.progress_tutorial[level] = int(index)
-                    return level, int(index)
+
+                    #return level, int(index)
+                    return self.progress_tutorial["basic"], self.progress_tutorial["advanced"]
         except FileNotFoundError:
             #error handling if the user has not done anything yet 
             #and hence file does not exist
@@ -190,25 +232,5 @@ class Tutorials(tk.Frame):
         return None, None
     
 
-
-    # #accessor methods
-    # def get_tutorial_title(self):
-    #     return self.tutorial_title
-
-    # def get_tutorial_content(self):
-    #     return self.tutorial_content
-    
-    # #setter methods
-    # def set_tutorial_title(self, new_tutorial_title):
-    #     self.tutorial_title = new_tutorial_title
-
-    # def set_tutorial_content(self, new_tutorial_content):
-    #     self.tutorial_content = new_tutorial_content
     
     
-
-
-
-if __name__ == "__main__":
-    tutorial1 = Tutorials("New Tutorial", "Random content")
-    tutorial1.disp_motivational_message()
