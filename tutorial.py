@@ -7,18 +7,23 @@ import tkinter as tk
 import csv
 
 class Tutorials(tk.Frame):
-    """
-    Definition for the Tutorial class.
-    attributes
-    - tutorial_title 
-    - tutorial_content
-    """
 
     def __init__(self, 
                  master,
                  learner_page,
                  learner_username
                  ):
+        """
+        Definition for the Tutorial class.
+        INPUTS:
+        self: The Tutorial object.
+        master: The tk root object.
+        learner_page: The Learner Object
+        learner_username: Username of the learner
+
+        OUTPUTS:
+        None
+        """
         
         # Initialise the parent class
         super().__init__(master=master)
@@ -117,17 +122,26 @@ class Tutorials(tk.Frame):
 
     #method for basic tutorial 
     def show_basic_tutorial(self):
+        """
+        Event handler to show the basic tutorial
+        """
         self.level_current = "basic"
         self.tutorial_index = 0
         self.show_current_tutorial()
 
     #method for advanced tutorial 
     def show_advanced_tutorial(self):
+        """
+        Event handler to show the advanced tutorial
+        """
         self.level_current = "advanced"
         self.tutorial_index = 0
         self.show_current_tutorial()
 
     def show_current_tutorial(self):
+        """
+        Event handler to show current tutorial
+        """
         if self.level_current == "basic":
             tutorial = self.basic_tutorials
         elif self.level_current == "advanced":
@@ -135,16 +149,18 @@ class Tutorials(tk.Frame):
 
         if self.tutorial_index < len(tutorial):
             self.tutorial_content.config(text=tutorial[self.tutorial_index])
+            #save progress for each tutorial
+            self.save_progress()
         else:
             self.tutorial_content.config(text= "Yay! You completed all the tutorials.")
-
-        #save progress for each tutorial
-        self.save_progress()
 
         return self.level_current, self.tutorial_index
 
 
     def tutorial_next(self):
+        """
+        Event handler to show next tutorial
+        """
         if self.level_current and self.tutorial_index is not None:
             self.tutorial_index += 1
             self.show_current_tutorial()
@@ -153,6 +169,9 @@ class Tutorials(tk.Frame):
 
 
     def tutorial_prev(self):
+        """
+        Event handler to show previous tutorial
+        """
         if self.level_current and self.tutorial_index is not None:
             if self.tutorial_index > 0:
                 self.tutorial_index -= 1
@@ -160,6 +179,9 @@ class Tutorials(tk.Frame):
 
     #function for displaying motivational messages
     def disp_motivational_message(self):
+        """
+        Event handler to show display motivational messages
+        """
         messages_list = ["Keep up the good work!", "You can do it!", "Keep going!"]
         message = random.choice(messages_list)
         self.message_label.config(text=message)
@@ -173,7 +195,7 @@ class Tutorials(tk.Frame):
             col_names = ['level', 'index']
             progress_file.write(",".join(col_names) + '\n')
 
-            progress_file.write(f'{self.level_current}, {self.tutorial_index}\n')
+            progress_file.write(f'{self.level_current}, {self.tutorial_index + 1}\n')
 
     #method to load progress
     def load_progress(self):
@@ -194,25 +216,5 @@ class Tutorials(tk.Frame):
         return None, None
     
 
-
-    # #accessor methods
-    # def get_tutorial_title(self):
-    #     return self.tutorial_title
-
-    # def get_tutorial_content(self):
-    #     return self.tutorial_content
-    
-    # #setter methods
-    # def set_tutorial_title(self, new_tutorial_title):
-    #     self.tutorial_title = new_tutorial_title
-
-    # def set_tutorial_content(self, new_tutorial_content):
-    #     self.tutorial_content = new_tutorial_content
     
     
-
-
-
-if __name__ == "__main__":
-    tutorial1 = Tutorials("New Tutorial", "Random content")
-    tutorial1.disp_motivational_message()

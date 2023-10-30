@@ -50,6 +50,10 @@ class Homepage(tk.Frame):
     def student_homepage(self, user):
         """
         Definition for the main student page.
+        Inputs (parameters):
+        self: The HomePage
+        user: The User
+
         """
         # Remove homepage from display
         self.place_forget()
@@ -62,6 +66,9 @@ class Homepage(tk.Frame):
     def parent_educator_homepage(self,user):
         """
         Definition for the main parent educator homepage.
+        Inputs (parameters):
+        self: The HomePage
+        user: The User
         """
         self.place_forget()
 
@@ -73,6 +80,9 @@ class Homepage(tk.Frame):
     def admin_homepage(self,user):
         """
         Definition for the main admin homepage.
+        Inputs (parameters):
+        self: The HomePage
+        user: The User
         """
         self.place_forget()
 
@@ -80,9 +90,6 @@ class Homepage(tk.Frame):
         admin_frame = Admin(self.master,user)
         admin_frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
-if __name__ == "__main__":
-    # Test cases
-    pass
 
 
 

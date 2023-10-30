@@ -107,6 +107,9 @@ class Login(tk.Frame):
 
 
     def register(self):
+        """
+        Event handler to register the user
+        """
         # Erase the login page
         self.place_forget()
 
@@ -118,6 +121,9 @@ class Login(tk.Frame):
 
 
     def login(self):
+        """
+        Event handler to login the user
+        """
 
         username = self.username_entry.get()
         password = self.password_entry.get()

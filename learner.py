@@ -11,30 +11,28 @@ import sqlite3 as sql
 
 # Learner class definition
 class Learner(tk.Frame):
-    """
-    Definition for the Learner class.
-    This class accepts the following arguments:
-    - User: a User object
-    - display_name: a string, which will be pulled from the User object
-    - age: an integer, which will be pulled from the User object
-    - progressLevel: and integer whose initial value will be 0 and whose setting i have to figure out. (set to zero initially?)
-    """
 
     def __init__(self,
                  master, 
                  User=User
                 ):
+        """
+    Definition for the Learner class.
+    attributes
+    INPUTS:
+    self: The Learner object.
+    master: The tk root object.
+    User: The User object
+
+    OUTPUTS:
+    None
+    """
         
         # Initialise the parent class
         super().__init__(master=master)
         self.master = master
         self.User = User
         self.username_learner = User.get_username()
-
-        # self.display_name = User.get_username()
-        # self.age = age
-        # self.progressLevel = progressLevel
-
         
         #welcome message label
         welcome_label = tk.Label(self,text = "Welcome to the Student Page!", font=("Arial",18) )
@@ -52,12 +50,6 @@ class Learner(tk.Frame):
         progress_button = tk.Button(self, text = "View Progress so far", command=self.view_user_progress) 
         progress_button.grid(row=3, column=0, padx=10, pady=10)
         
-        # #button to go back to the login page
-        # go_to_home_page = tk.Button(self, text = "Go Back",command=self.go_back_to_home) 
-        # go_to_home_page.grid(row=4, columnspan=3, padx=10, pady=10)
-
-        #initialising a progress tracker for each student
-        #self.progress_tracker = ProgressTracker(self)
     
     def go_back_to_home(self):
         """
@@ -86,6 +78,9 @@ class Learner(tk.Frame):
     #csv method
 
     def view_user_progress(self):
+        """
+        Event handler to view user progress
+        """
         progress_window = tk.Toplevel(self.master)
         progress_window.title("Progress Report")
         progress_window.geometry("600x450")
@@ -123,15 +118,6 @@ class Learner(tk.Frame):
         progress_chall_label = tk.Label(progress_window, text=f"Challenges completed: {completed_chall}")
         progress_chall_label.pack( padx=10, pady=10)
 
-
-    def get_age(self):
-        return self.age
-
-    def setAge(self, age):
-        self.age = age
-    
-    def addProgressLevel(self):
-        self.progressLevel += 1
     
     #database method
 
@@ -151,21 +137,3 @@ class Learner(tk.Frame):
         progress_label = tk.Label(self, text=f"Your progress so far: {result} out of 5 lessons completed.")
         progress_label.grid(row=4, column=0, padx=10, pady=10)
 
-
-
-
-    
-
-
-if __name__ == "__main__":
-    # Test cases
-    
-    # Create a User object
-    user1 = User("Jane", "Doe", "something@gmail.com", "password", "jdoe", "student", 1)
-
-    print( user1.getUsername())
-
-    check = user1.__str__()
-    # Create a Learner object
-    learner1 = Learner(user1, 25, 0)
-    print(learner1.age)

@@ -10,21 +10,25 @@ import csv
 
 # ParentEducator class definition
 class ParentEducator(tk.Frame):
-    """
-    - parentEducatorName: string
-    - student: Learner
-    - learnerProgress: ProgressTracker
-
-    """
+    
 
     def __init__(self, master, User):
         """
-        Constructor of ParentEducator self
+         
+        Definition for the Learner class.
+        attributes
+        INPUTS:
+        self: The Learner object.
+        master: The tk root object.
+        User: The User object
+
+        OUTPUTS:
+        None
+    
         """
         super().__init__(master=master)
         self.master = master
         self.User = User
-        # self.Learner = Learner
 
         #welcome message label
         welcome_label = tk.Label(self,text = "Welcome to the Parent/Educator Page!", font=("Arial",18) )
@@ -112,6 +116,9 @@ class ParentEducator(tk.Frame):
         
     
     def store_feedback_db(self):
+        """
+        Method to store user feedback in the codeventure.db
+        """
         #retrieve user feedback from the text widget
         #from start to the end of the box
         user_feedback = self.feedback_box.get("1.0", tk.END)
@@ -156,12 +163,4 @@ class ParentEducator(tk.Frame):
         self.thanks_label.config(text="Thank you for your feedback!")
 
 
-if __name__ == "__main__":
-    # Test cases
-    # Create a User object
-    user1 = User("Jane", "Doe", "something@gmail.com", "password", "jdoe", "student", 1)
-    learner1 = Learner(user1, 14, 1)
-    user2 = User("Kate", "Simpson", "someemail@gmail.com", "password1", "kateSi", "parent", 1)
-    parent1 = ParentEducator(user2, learner1)
-    feedback = parent1.give_feedback()
     

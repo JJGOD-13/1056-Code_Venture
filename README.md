@@ -25,6 +25,18 @@ The project is built on the following structure:
 - update_db.py - commands for updating the database
 - icon.png - the logo image for the login page
 
+# Features
+- Register the user (Learner, Parent/Educator, Admin)
+- Login the user (Learner, Parent/Educator, Admin)
+- Attempt Tutorials by Learner
+- Attempt Challenges by Learner
+- Store the Learner progress
+- Parent/Educator is able to give feedback 
+- Parent/Educator is able to view Learner Progress
+- Learner is able to view his/her progress
+- Admin is able to view user statistics (Number of users registered)
+- Admin is able to see all feedback provided by all the users
+
 # Usage
 
 The CodeVenture software is used by running the tkinterest.py file. 
