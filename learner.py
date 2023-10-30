@@ -99,7 +99,7 @@ class Learner(tk.Frame):
                 else:
                     completed_tut = 0
 
-            with open('challenge_progress.csv', "r") as challenge_file:
+            with open(f'{self.username_learner}_chall_progress.csv', "r") as challenge_file:
                 lines_challenge = challenge_file.readlines()
                 if len(lines_challenge) > 1: #check if the file has content
                     ques_index = lines_challenge[1].strip()
