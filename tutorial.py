@@ -36,6 +36,8 @@ class Tutorials(tk.Frame):
         self.progress_tutorial = {"basic":0, "advanced":0}
         self.learner_page = learner_page
 
+        self.done_tutorials = {"basic": False, "advanced":True}
+
         #load the progress
         self.load_progress()
 
@@ -59,12 +61,12 @@ class Tutorials(tk.Frame):
 
 
         #button to show "Basics" tutorial 
-        tutorial_button1 = tk.Button(self, text = "Tutorial: Basics",command=self.show_basic_tutorial) 
-        tutorial_button1.grid(row=2, column=0, padx=10, pady=10)
+        self.tutorial_button1 = tk.Button(self, text = "Tutorial: Basics",command=self.show_basic_tutorial) 
+        self.tutorial_button1.grid(row=2, column=0, padx=10, pady=10)
 
         #button to show "Advanced" tutorial 
-        tutorial_button2 = tk.Button(self, text = "Tutorial: Advanced",command=self.show_advanced_tutorial) 
-        tutorial_button2.grid(row=2, column=1,sticky=tk.E, padx=10, pady=10)
+        self.tutorial_button2 = tk.Button(self, text = "Tutorial: Advanced",command=self.show_advanced_tutorial) 
+        self.tutorial_button2.grid(row=2, column=1,sticky=tk.E, padx=10, pady=10)
 
         #button for next tutorial
         tutorial_next = tk.Button(self, text = "Next Tutorial",command=self.tutorial_next) 
@@ -153,6 +155,10 @@ class Tutorials(tk.Frame):
             self.save_progress()
         else:
             self.tutorial_content.config(text= "Yay! You completed all the tutorials.")
+            if self.level_current == "basic":
+                self.tutorial_button1.config(text = "Tutorial: Basics ✅")
+            elif self.level_current == "advanced":
+                self.tutorial_button2.config(text = "Tutorial: Advanced ✅")
 
         return self.level_current, self.tutorial_index
 
