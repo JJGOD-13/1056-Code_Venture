@@ -3,7 +3,6 @@ The CodeVenture project code for FIT 1056 - Collaborative Engineering for Web Ap
 
 CodeVenture is a fun and interactive game designed to make learning Python programming engaging and fun for young learners.
 
-
 # File structure
 
 The project is built on the following structure:
@@ -27,6 +26,9 @@ The project is built on the following structure:
 - icon.png - the logo image for the login page
 
 # Usage
+
+The CodeVenture software is used by running the tkinterest.py file. 
+
 The users first need to register their account on CodeVenture to have 
 access to all the features. Once registered, they can login with their 
 registered username and password. 
