@@ -31,7 +31,7 @@ class ParentEducator(tk.Frame):
         welcome_label.grid(row=0, columnspan=2, padx=10, pady=10)
 
         #button to view progress
-        progress_button = tk.Button(self, text = "View Progress of child",font=("Calibri", 12)) #add command to direct to progress report page
+        progress_button = tk.Button(self, text = "View Progress of child",font=("Calibri", 12), command=self.view_childs_progress) #add command to direct to progress report page
         progress_button.grid(row=1, column=0, padx=10, pady=10)
         
         #label for feedback
@@ -94,6 +94,59 @@ class ParentEducator(tk.Frame):
 
         #dispaly thank you message
         self.thanks_label.config(text="Thank you for your feedback!")
+
+    def view_childs_progress(self):
+
+        # Ask the parent to input their child's first name and lastname
+
+        firstname_label = tk.Label(self, text="Enter your child's first name:")
+        firstname_label.grid(row=1, column=1, padx=10, pady=10)
+
+        self.firstname_entry = tk.Entry(self)
+        self.firstname_entry.grid(row=1, column=2, padx=10, pady=10)
+
+        lastname_label = tk.Label(self, text="Enter your child's last name:")
+        lastname_label.grid(row=2, column=1, padx=10, pady=10)
+
+        self.lastname_entry = tk.Entry(self)
+        self.lastname_entry.grid(row=2, column=2, padx=10, pady=10)
+
+        # Make a button to submit the child's name
+        submit_button = tk.Button(self, text="Submit", command=self.get_childs_progress)
+        submit_button.grid(row=3, column=2, padx=10, pady=10)
+
+    def get_childs_progress(self):
+
+        # Open a connection to the database
+
+        db = sql.connect("codeventure.db")
+        c = db.cursor()
+
+        # Get the child's first name and last name from the entry boxes
+
+        firstname = self.firstname_entry.get()
+        lastname = self.lastname_entry.get()
+
+        # Get the child's username from the users table
+
+        c.execute("SELECT username FROM users WHERE first_name = ? AND last_name = ?", (firstname, lastname))
+        username = c.fetchone()[0]
+
+        # Get the child's progress from the students table
+        
+        c.execute("SELECT level FROM students WHERE username = ?", (username,))
+        progress = c.fetchone()[0]
+
+        # Display the child's progress
+
+        progress_label = tk.Label(self, text=f"{firstname} {lastname}'s progress so far: {progress} out of 5 lessons completed.")
+        progress_label.grid(row=4, column=0, padx=10, pady=10)
+
+        # Close the connection to the database
+
+        db.close()
+
+        
 
 
 if __name__ == "__main__":
