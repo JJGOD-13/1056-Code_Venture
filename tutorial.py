@@ -33,6 +33,7 @@ class Tutorials(tk.Frame):
         self.username_student = learner_username
 
         #progress variables
+        
         self.progress_tutorial = {"basic":0, "advanced":0}
         self.learner_page = learner_page
 
@@ -151,6 +152,11 @@ class Tutorials(tk.Frame):
 
         if self.tutorial_index < len(tutorial):
             self.tutorial_content.config(text=tutorial[self.tutorial_index])
+
+            if self.level_current == "basic":
+                self.progress_tutorial["basic"] = self.tutorial_index
+            elif self.level_current == "advanced":
+                self.progress_tutorial["advanced"] = self.tutorial_index
             #save progress for each tutorial
             self.save_progress()
         else:
@@ -201,7 +207,9 @@ class Tutorials(tk.Frame):
             col_names = ['level', 'index']
             progress_file.write(",".join(col_names) + '\n')
 
-            progress_file.write(f'{self.level_current}, {self.tutorial_index + 1}\n')
+            #progress_file.write(f'{self.level_current}, {self.tutorial_index + 1}\n')
+            progress_file.write(f'basic, {self.progress_tutorial["basic"]}\n')
+            progress_file.write(f'advanced, {self.progress_tutorial["advanced"]}\n')
 
     #method to load progress
     def load_progress(self):
@@ -214,7 +222,9 @@ class Tutorials(tk.Frame):
                 if len(lines) > 1: #check if the file has content
                     level, index = lines[1].strip().split(',')
                     self.progress_tutorial[level] = int(index)
-                    return level, int(index)
+
+                    #return level, int(index)
+                    return self.progress_tutorial["basic"], self.progress_tutorial["advanced"]
         except FileNotFoundError:
             #error handling if the user has not done anything yet 
             #and hence file does not exist

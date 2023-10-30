@@ -33,6 +33,7 @@ class Learner(tk.Frame):
         self.master = master
         self.User = User
         self.username_learner = User.get_username()
+    
         
         #welcome message label
         welcome_label = tk.Label(self,text = "Welcome to the Student Page!", font=("Arial",18) )
@@ -85,14 +86,23 @@ class Learner(tk.Frame):
         progress_window.title("Progress Report")
         progress_window.geometry("600x450")
 
+        completed_tut = 0
+        completed_adv = 0
+
         try:
             with open(f'{self.username_learner}_progress.csv', "r") as progress_file:
-                lines = progress_file.readlines()
-                if len(lines) > 1: #check if the file has content
-                    level, index = lines[1].strip().split(',')
-                    completed_tut = int(index)
-                else:
-                    completed_tut = 0
+                # lines = progress_file.readlines()
+                # if len(lines) > 1: #check if the file has content
+                    for line in progress_file:
+                        level, index = line.strip().split(',')
+                        if level == "basic":
+                            completed_tut = int(index)
+                        if level == "advanced":
+                            completed_adv = int(index)
+
+                # else:
+                #     completed_tut = 0
+                #     completed_adv = 0
 
             with open(f'{self.username_learner}_chall_progress.csv', "r") as challenge_file:
                 lines_challenge = challenge_file.readlines()
@@ -104,6 +114,7 @@ class Learner(tk.Frame):
         except FileNotFoundError:
             completed_tut = 0
             completed_chall= 0
+            completed_adv = 0
             #error handling if the user has not done anything yet 
             #and hence file does not exist
             pass 
@@ -112,8 +123,11 @@ class Learner(tk.Frame):
         title_label.pack(padx=10, pady=10)
 
 
-        progress_label = tk.Label(progress_window, text=f"Tutorials completed: {completed_tut}")
+        progress_label = tk.Label(progress_window, text=f"Basic Tutorials completed: {completed_tut}")
         progress_label.pack( padx=10, pady=10)
+
+        progress_adv_label = tk.Label(progress_window, text=f"Advanced Tutorials completed: {completed_adv}")
+        progress_adv_label.pack( padx=10, pady=10)
 
         progress_chall_label = tk.Label(progress_window, text=f"Challenges completed: {completed_chall}")
         progress_chall_label.pack( padx=10, pady=10)

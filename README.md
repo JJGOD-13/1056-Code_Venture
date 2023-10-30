@@ -30,6 +30,8 @@ The project is built on the following structure:
 - Login the user (Learner, Parent/Educator, Admin)
 - Attempt Tutorials by Learner
 - Attempt Challenges by Learner
+- Appearance of tick next to the Tutorial button once after the 
+  tutorial is completed
 - Store the Learner progress
 - Parent/Educator is able to give feedback 
 - Parent/Educator is able to view Learner Progress
