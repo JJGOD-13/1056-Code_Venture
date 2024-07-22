@@ -50,8 +50,3 @@ Learners(Students) can access tutorials, challenges and view their progress repo
 Parents/Educators can view the progress report of students and also provide feedback
 Admin can view the user stats and all the feedback received. 
 
-## Project by Team G07
-- Joy Jasmine Kaur
-- Jayant Godse 
-- Sidharth Rao 
-- Zac Daniel
